@@ -8,8 +8,13 @@ impl Descriptor{
     
     pub fn new() -> Self{
         Self { 
+<<<<<<< HEAD
             text: Default::default()
         }
+=======
+            text: "".to_string()
+         }
+>>>>>>> origin/main
     }
 
     pub fn parse_command(&self, state: &mut State){
@@ -17,6 +22,17 @@ impl Descriptor{
         let first = s.chars().nth(0);
         if  first == Some('/') {
             match &s as &str{
+<<<<<<< HEAD
+=======
+
+                "/output"=>{
+                    state.diffuse_texture_flag = false;
+                    state.normal_texture_flag = false;
+                    state.depth_texture_flag = false;
+                    state.output_texture_flag = true;
+                    s = String::from("Texture changed");
+                }
+>>>>>>> origin/main
                 "/diffuse"=>{
                     state.diffuse_texture_flag = true;
                     state.normal_texture_flag = false;
@@ -39,6 +55,7 @@ impl Descriptor{
                     state.depth_texture_flag = true;
                     state.output_texture_flag = false;
                     s = String::from("Texture changed");
+<<<<<<< HEAD
                 }
 
                 "/output"=>{
@@ -53,6 +70,16 @@ impl Descriptor{
                     s = String::from("Welcome to ASYMPTOTE Industries (TM) !");
                 }
 
+=======
+
+                }
+                
+
+                "/tab"=>{
+                    s = String::from("Psiprobe joined the game");
+
+                }
+>>>>>>> origin/main
                 _=>{
                     s = String::from("Fail to parse command");
                 }

@@ -14,8 +14,11 @@ pub struct Camera {
     pub target: cgmath::Point3<f32>,
     pub position: cgmath::Point3<f32>,
     pub up: cgmath::Vector3<f32>,
+<<<<<<< HEAD
     pub left: cgmath::Vector3<f32>,
     pub forward: cgmath::Vector3<f32>,
+=======
+>>>>>>> origin/main
     pub aspect: f32,
     pub fovy: f32,
     pub znear: f32,
@@ -103,8 +106,13 @@ pub struct CameraController {
     pos_z: f32,
     yaw:f32,
 
+<<<<<<< HEAD
     pub is_cli_released:bool,
     pub is_cli_pressed: bool,
+=======
+    pub is_slash_released:bool,
+    pub is_slash_pressed: bool,
+>>>>>>> origin/main
     pub mouse_left_pressed: bool,
     pub mouse_right_pressed: bool,
 
@@ -126,8 +134,13 @@ impl CameraController {
             speed,
             sensitivity,
 
+<<<<<<< HEAD
             is_cli_released:false,
             is_cli_pressed:false,
+=======
+            is_slash_released:false,
+            is_slash_pressed:false,
+>>>>>>> origin/main
             is_up_pressed: false,
             is_down_pressed: false,
             is_forward_pressed: false,
@@ -193,8 +206,13 @@ impl CameraController {
                 match keycode {
 
                     VirtualKeyCode::F3 => {
+<<<<<<< HEAD
                         self.is_cli_pressed = is_pressed;
                         self.is_cli_released = is_released;
+=======
+                        self.is_slash_pressed = is_pressed;
+                        self.is_slash_released = is_released;
+>>>>>>> origin/main
                         true
                     }
                     VirtualKeyCode::Space => {
@@ -265,15 +283,24 @@ impl CameraController {
     pub fn update_camera(&mut self, camera: &mut Camera ,dt: Duration) {
 
         let dt = dt.as_secs_f32();
+<<<<<<< HEAD
         if self.mouse_right_pressed 
             {
                 self.yaw += self.rotate_horizontal;
             }
+=======
+        
+        self.yaw += self.rotate_horizontal;
+>>>>>>> origin/main
         self.pos_x = Rad::sin(Rad(self.yaw*self.sensitivity))*self.radius;
         self.pos_z = Rad::cos(Rad(self.yaw*self.sensitivity))*self.radius;
 
         let forward = Vector3::new(self.pos_x, 0.0, self.pos_z).normalize();
+<<<<<<< HEAD
         camera.left = camera.up.cross(forward).normalize();
+=======
+        let left = camera.up.cross(forward).normalize();
+>>>>>>> origin/main
 
         
 
@@ -292,7 +319,11 @@ impl CameraController {
         }
 
         camera.position += (self.forward_count-self.forward_count%3.0) * forward;
+<<<<<<< HEAD
         camera.position += (self.left_count-self.left_count%1.0) * camera.left;
+=======
+        camera.position += (self.left_count-self.left_count%1.0) * left;
+>>>>>>> origin/main
 
         self.forward_count %= 3.0;
         self.left_count %= 1.0;
@@ -321,7 +352,11 @@ impl CameraController {
         }
 
         //pixel glitch fix
+<<<<<<< HEAD
         camera.target = camera.position + (self.x_current - self.x_current%1.0) * camera.left + (self.y_current - self.y_current%3.0) * forward;
+=======
+        camera.target = camera.position + (self.x_current - self.x_current%1.0) * left + (self.y_current - self.y_current%3.0) * forward;
+>>>>>>> origin/main
 
         camera.eye = cgmath::Point3::new(self.pos_x,self.pos_y,self.pos_z)+(
             camera.target-cgmath::Point3::new(0.0,0.0,0.0)

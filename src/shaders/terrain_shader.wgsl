@@ -42,6 +42,7 @@ fn vs_main(
     );
 
     var out: VertexOutput;
+<<<<<<< HEAD
 
     out.clip_position =  camera.view_proj * model_matrix *vec4<f32>(model.position, 1.0);
 
@@ -63,6 +64,20 @@ fn vs_main(
 }
 
 // Fragment
+=======
+    
+    out.clip_position =  camera.view_proj * model_matrix *vec4<f32>(model.position, 1.0);
+    let light_dir = normalize(light.position - (model_matrix *vec4<f32>(model.position, 1.0)).xyz);
+    var diffuse_strength = max(dot(model.normal, light_dir),0.0);
+    let rgb_color = vec3<f32>(model.color[0],model.color[1],model.color[2]);
+    let diffuse_color = rgb_color *  diffuse_strength * diffuse_strength * diffuse_strength;
+
+    out.color = vec4<f32>(diffuse_color[0],diffuse_color[1],diffuse_color[2],model.color[3]);
+    return out;
+}
+
+// Fragment shader
+>>>>>>> origin/main
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> { 

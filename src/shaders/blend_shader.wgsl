@@ -1,6 +1,7 @@
 struct Data {
     offset: vec3<f32>,
 };
+<<<<<<< HEAD
 
 struct TexelData{
 
@@ -25,6 +26,11 @@ struct TexelData{
 var<uniform> data: Data;
 
 
+=======
+@group(0)@binding(0)
+var<uniform> data: Data;
+
+>>>>>>> origin/main
 struct VertexInput {
     @location(0) position: vec3<f32>,
     @location(1) tex_coords: vec2<f32>,
@@ -35,6 +41,7 @@ struct VertexOutput {
     @location(0) tex_coords: vec2<f32>,
 };
 
+<<<<<<< HEAD
 //fxaa function set
 //see https://zhuanlan.zhihu.com/p/373379681
 
@@ -56,6 +63,8 @@ fn calc_normal(grad_up:f32,grad_down:f32,grad_left:f32,grad_right:f32,is_horizon
 
 
 
+=======
+>>>>>>> origin/main
 @vertex
 fn vs_main(
     model: VertexInput,
@@ -89,6 +98,7 @@ var s_depth: sampler;
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
+<<<<<<< HEAD
 
     var FXAA_ABSOLUTE_LUMA_THRESHOLD = 0.01;
 
@@ -97,6 +107,8 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     let diffuse_right = textureSample(t_diffuse, s_diffuse, in.tex_coords,vec2<i32>(0,1));
     let diffuse_up = textureSample(t_diffuse, s_diffuse, in.tex_coords,vec2<i32>(1,0));
     let diffuse_down = textureSample(t_diffuse, s_diffuse, in.tex_coords,vec2<i32>(-1,0));
+=======
+>>>>>>> origin/main
     
     let depth = textureSample(t_depth, s_depth, in.tex_coords);
     let depth_left = textureSample(t_depth, s_depth, in.tex_coords,vec2<i32>(0,1));
@@ -109,6 +121,7 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     let normal_right = textureSample(t_normal, s_normal, in.tex_coords,vec2<i32>(0,-1));
     let normal_up = textureSample(t_normal, s_normal, in.tex_coords,vec2<i32>(-1,0));
     let normal_down = textureSample(t_normal, s_normal, in.tex_coords,vec2<i32>(-1,0));
+<<<<<<< HEAD
 
     var tex_data:TexelData;
 
@@ -161,10 +174,23 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     }else if(normal.x != normal_left.x || normal.y != normal_left.y ||normal.z != normal_left.z){
 
         return diffuse * 2.0;
+=======
+    
+    let diffuse = textureSample(t_diffuse, s_diffuse, in.tex_coords);
+    
+    if((depth.x - depth_down.x) < -0.02|| (depth.x - depth_left.x) < -0.02|| (depth.x - depth_right.x) < -0.02|| (depth.x - depth_up.x) < -0.02){
+
+        return vec4<f32>(1.0,1.0,1.0,1.0);
+
+    }else if(normal.x != normal_left.x || normal.y != normal_left.y ||normal.z != normal_left.z){
+
+        return diffuse * 5.0;
+>>>>>>> origin/main
 
     }
     else if(normal.x != normal_down.x|| normal.y != normal_down.y||normal.z != normal_down.z){
 
+<<<<<<< HEAD
         return diffuse * 2.0;
 
     }
@@ -187,6 +213,11 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
         return vec4<f32>(blend,1.0);
         
     }
+=======
+        return diffuse * 5.0;
+
+    }
+>>>>>>> origin/main
     else {
         return diffuse;
     }
@@ -200,5 +231,9 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
 
     //}
 
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> origin/main
